@@ -9,10 +9,10 @@ char** selectById(char *table, int id) {
     int rc;
 
     rc = sqlite3_open("./src/db/note.db", &db);
-    
+
     if (rc) {
         fprintf(stderr, "Cannot open database: %s\n", sqlite3_errmsg(db));
-        return 1;
+        return NULL;
     }
 
     char sql[100];
@@ -20,7 +20,7 @@ char** selectById(char *table, int id) {
 
     sqlite3_stmt *stmt;
     rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
-    
+
     if (rc != SQLITE_OK) {
         fprintf(stderr, "Cannot run query %s\n\nError: %s\n", sql, errMessage);
         sqlite3_free(errMessage);
@@ -41,14 +41,14 @@ char** selectById(char *table, int id) {
         
         if (registro == NULL) {
             fprintf(stderr, "Erro ao alocar memória para registro.");
-            return 1;
+            return NULL;
         }
 
         // Construir o registro como uma string
         registro[0] = '\0'; // Garantir que a string esteja vazia antes de adicionar dados
         
         for (int i = 0; i < col_count; i++) {
-            strcat(registro, sqlite3_column_text(stmt, i));
+            strcat(registro, (const char *) sqlite3_column_text(stmt, i));
             strcat(registro, "\t"); // Adicionar um separador entre os valores
         }
 
