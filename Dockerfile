@@ -27,6 +27,3 @@ RUN ./src/build/migrations/04_create-note-data
 # Install JavaScript dependencies
 # Assuming you have a 'package.json' file
 RUN npm install
-
-# Run your application
-RUN npm run dev
