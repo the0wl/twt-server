@@ -6,14 +6,14 @@ static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
   return 0;
 }
 
-void up() {
+int main(int argc, char *argv[]) {
   sqlite3 *db;
   char *errMessage = 0;
   int rc;
 
-  rc = sqlite3_open("./src/db/note.db", &db);
+  rc = sqlite3_open("src/db/note.db", &db);
   if (rc) {
-    fprintf(stderr, "Oops: %s\n", sqlite3_errmsg(db));
+    fprintf(stderr, "Error: %s\n", sqlite3_errmsg(db));
   }
   
   char *noteTableSQL = "CREATE TABLE IF NOT EXISTS note ("
@@ -32,5 +32,6 @@ void up() {
   }
 
   sqlite3_close(db);
-  printf("OK");
+  
+  return 0;
 }

@@ -1,0 +1,11 @@
+gcc ./src/core/main.c -lsqlite3 -o src/build/main
+
+gcc ./src/core/migrations/01_create-table-user.c -lsqlite3 -o src/build/migrations/01_create-table-user
+gcc ./src/core/migrations/02_create-table-note.c -lsqlite3 -o src/build/migrations/02_create-table-note
+gcc ./src/core/migrations/03_create-user-data.c -lsqlite3 -o src/build/migrations/03_create-user-data
+gcc ./src/core/migrations/04_create-note-data.c -lsqlite3 -o src/build/migrations/04_create-note-data
+
+./src/build/migrations/01_create-table-user
+./src/build/migrations/02_create-table-note
+./src/build/migrations/03_create-user-data
+./src/build/migrations/04_create-note-data
