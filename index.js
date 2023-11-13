@@ -5,7 +5,8 @@ const { exit } = require('process');
 const fs = require('fs');
 
 const app = express();
-const port = 1337;
+const PORT = process.env.PORT || 3000; // Fallback to 3000 if PORT is not in env
+const HOST = '0.0.0.0'; // Bind to all network interfaces
 
 function meuMiddleware(req, res, next) {
   console.log(`${req.method} ${req.originalUrl}`);
@@ -296,9 +297,9 @@ function init() {
   });
 }
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(PORT, HOST, () => {
   console.log('\n----------------------------------------\n');
-  console.log(`  API rodando em http://localhost:${port}`);
+  console.log(`  API rodando em ${HOST}:${PORT}`);
   
   init()
 });
